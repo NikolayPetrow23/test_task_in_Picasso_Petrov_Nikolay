@@ -1,11 +1,14 @@
-from rest_framework.viewsets import ModelViewSet
+from rest_framework.generics import CreateAPIView, ListAPIView
 
 from api.models import File
 from api.serializers import FileSerializer
 
 
-class FileViewSet(ModelViewSet):
+class CreateFileAPIView(CreateAPIView):
     queryset = File.objects.all()
     serializer_class = FileSerializer
-    http_method_names = ('post', 'get',)
-    # permission_classes = (ReadOnly,)
+
+
+class ListFileAPIView(ListAPIView):
+    queryset = File.objects.all()
+    serializer_class = FileSerializer
