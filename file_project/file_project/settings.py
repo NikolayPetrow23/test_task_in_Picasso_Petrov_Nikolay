@@ -19,8 +19,10 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = True
 
 ALLOWED_HOSTS = [
+    os.getenv('IP_SERVER'),
     os.getenv('PROJECT_HOST'),
     os.getenv('LOCAL_HOST'),
+    os.getenv('PROJECT_DOMAIN')
 ]
 
 ALLOWED_EXTENSIONS_FILE = ['jpg', 'jpeg', 'png', 'gif', 'txt', 'text']
