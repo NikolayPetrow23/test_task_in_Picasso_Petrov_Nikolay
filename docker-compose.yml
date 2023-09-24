@@ -1,0 +1,53 @@
+version: '3.8'
+
+volumes:
+  pg_data:
+  static:
+  media:
+
+services:
+  db:
+    image: postgres:13.10
+    env_file: .env
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+    restart: always
+    container_name: test_task_db
+
+  redis:
+    image: redis:7
+    container_name: test_task_redis
+
+  backend:
+    image: nikolay2310/test_task_backend:latest
+    build: .
+    env_file: .env
+    command: ["docker/app.sh"]
+    volumes:
+      - static:/app/static/
+      - media:/app/media/
+    depends_on:
+      - db
+      - redis
+
+  celery:
+    image: nikolay2310/test_task_backend:latest
+    container_name: nikolatest_task_celery
+    env_file:
+      - .env
+    command: ["docker/celery.sh"]
+    depends_on:
+      - redis
+
+  nginx:
+    image: nginx:1.19.3
+    container_name: test_task_nginx
+    ports:
+      - "8000:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - static:/var/html/static/
+      - media:/var/html/media/
+    depends_on:
+      - backend
+    restart: always

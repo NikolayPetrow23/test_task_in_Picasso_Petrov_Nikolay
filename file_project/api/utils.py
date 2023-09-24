@@ -1,23 +1,12 @@
-from PIL import Image
-from django.core.files.uploadedfile import SimpleUploadedFile
+from api.models import File
 
 
-def create_image() -> SimpleUploadedFile:
-    width = 1000
-    height = 500
+def change_processed(pk: int):
+    file = File.objects.get(pk=pk)
+    file.processed = True
+    file.save()
 
-    image = Image.new("RGB", (width, height))
 
-    image_path = "test_image.jpeg"
-    image.save(image_path, "JPEG")
-
-    with open(image_path, "rb") as f:
-        image_content = f.read()
-
-    image = SimpleUploadedFile(
-        "test_image.jpeg",
-        image_content,
-        content_type="image/jpeg"
-    )
-
-    return image
+def check_type_file(file: File) -> str:
+    file_type = file.file.name.split('.')[-1]
+    return file_type
