@@ -1,3 +1,5 @@
 #!/bin/bash
 
-celery -A file_project.file_project worker --loglevel=info
+cd file_project
+
+celery --app=file_project.celery worker -l INFO
