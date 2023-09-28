@@ -8,12 +8,12 @@ https://task-picasso.ddns.net
 
 ### Адрес загрузки файла
 ````
-https://task-picasso.ddns.net/api/v1/ulpad/
+https://task-picasso.ddns.net/api/v1/upload/
 ````
 
 ### Адрес списка загруженных файлов 
 ````
-https://task-picasso.ddns.net/api/v1/ulpad/
+https://task-picasso.ddns.net/api/v1/files/
 ````
 
 ### В данном проекте осуществлен следующий функционал:
